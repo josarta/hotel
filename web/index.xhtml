@@ -1,0 +1,253 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"/>
+
+    </h:head>
+    <h:body>
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-sm">
+                    <h3>Hotel</h3>
+                    <hr/>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#hotelModal">
+                        Nuevo Hotel 
+                    </button>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
+                        <div class="card-header">#{gestionView.miHotel.direccion}</div>
+                        <div class="card-body">
+                            <h6 class="card-title">Telefono : #{gestionView.miHotel.telefono}</h6>
+                            <p class="card-text">Ciudad : #{gestionView.miHotel.ciudad} </p>
+                            <p class="card-text">Barrio - #{gestionView.miHotel.barrio} </p>
+                        </div>
+                    </div>
+
+                    <c:forEach items="#{gestionView.miHotel.listaHabitaciones}" var="objHa">
+                        <div class="card mb-3" style="max-width: 540px;">
+                            <div class="row no-gutters">
+                                <div class="col-md-4">
+                                    <img src="imagenes/#{objHa.tipoHabitacion}.jpg" class="card-img" alt="..."/>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Numero : #{objHa.numeroHabitacion}</h5>
+                                        <p class="card-text">Calefaccion: #{objHa.calefaccion} <br/> Telefono #{objHa.telefono} <br/> Baño Privado #{objHa.banioPrivado}  </p>
+                                        <p class="card-text"><small class="text-muted">Tipo : #{objHa.tipoHabitacion}</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+
+
+
+                </div>
+                <div class="col-sm">
+                    <h3>Habitaciones</h3>
+                    <hr/>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#habitacionModal">
+                        Nueva habitacion
+                    </button>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+                        <div class="card-header">Numero #{gestionView.nuevaHabitacion.numeroHabitacion} Tipo : #{gestionView.nuevaHabitacion.tipoHabitacion} </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Caracteristicas</h5>
+                            <p class="card-text"> Calefaccion #{gestionView.nuevaHabitacion.calefaccion} <br/> Telefono #{gestionView.nuevaHabitacion.telefono} <br/> Baño Privado #{gestionView.nuevaHabitacion.banioPrivado}   </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <h3>Confiteria</h3>
+                    <hr/>
+                    <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#confiteriaModal">
+                        Nueva confiteria
+                    </button>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <ul class="list-unstyled">
+                        <c:forEach items="#{gestionView.miHotel.listaConfiteria}" var="objConf">
+                            <li class="media">
+                                <img src="imagenes/#{objConf.menu}.jpg" style="height: 24px ; width: 24px" class="mr-3" alt="..."/>
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-1">#{objConf.menu}</h5>
+                                    Adicionales #{objConf.adicionales}
+                                </div>
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </div>
+                <div class="col-sm">
+                    <h3> Reserva</h3>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="hotelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nuevo hotel</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <h:form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="direccionId">Direccion</label>
+                                <h:inputText  value="#{gestionView.miHotel.direccion}" class="form-control" id="direccionId"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="ciudadId">Ciudad</label>
+                                <h:inputText value="#{gestionView.miHotel.ciudad}" class="form-control" id="ciudadId"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="barrioId">Barrio</label>
+                                <h:inputText  value="#{gestionView.miHotel.barrio}" class="form-control" id="barrioId"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="telefonoId">Telefono</label>
+                                <h:inputText  value="#{gestionView.miHotel.telefono}" class="form-control" id="telefonoId"/>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <h:commandButton  class="btn btn-primary" value="Crear -- > Hotel" />
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="habitacionModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nueva Habitacion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <h:form>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="tipoId">Tipo Habitacion</label>
+                                <h:selectOneMenu class="form-control" value="#{gestionView.nuevaHabitacion.tipoHabitacion}">
+                                    <f:selectItem itemValue="Simple" itemLabel="Simple"></f:selectItem>
+                                    <f:selectItem itemValue="Doble" itemLabel="Doble"></f:selectItem>
+                                    <f:selectItem itemValue="Suite" itemLabel="Suite"></f:selectItem>
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="habitacionId">Numero Habitacion</label>
+                                <h:inputText  value="#{gestionView.nuevaHabitacion.numeroHabitacion}" class="form-control" id="habitacionId"/>
+                            </div>
+                            <div class="form-group">
+                                <label for=""  style="margin-bottom: 0px !important">Baño Privado</label>
+                                <div class="form-check">
+                                    <h:selectOneRadio  class="form-check-input" value="#{gestionView.nuevaHabitacion.banioPrivado}">
+                                        <f:selectItem itemValue="true" itemLabel="Si"></f:selectItem>
+                                        <f:selectItem itemValue="false" itemLabel="No"></f:selectItem>
+                                    </h:selectOneRadio>
+                                </div>    
+                                <br/>
+                                <br/>
+                                <label for="" style="margin-bottom: 0px !important">Calefaccion</label>
+                                <div class="form-check">
+                                    <h:selectOneRadio  class="form-check-input" value="#{gestionView.nuevaHabitacion.calefaccion}">
+                                        <f:selectItem itemValue="true" itemLabel="Si"></f:selectItem>
+                                        <f:selectItem itemValue="false" itemLabel="No"></f:selectItem>
+                                    </h:selectOneRadio>
+                                </div> 
+                                <br/>  <br/>
+                                <label for=""  style="margin-bottom: 0px !important">Telefono</label>
+                                <div class="form-check">
+                                    <h:selectOneRadio  class="form-check-input" value="#{gestionView.nuevaHabitacion.telefono}">
+                                        <f:selectItem itemValue="true" itemLabel="Si"></f:selectItem>
+                                        <f:selectItem itemValue="false" itemLabel="No"></f:selectItem>
+                                    </h:selectOneRadio>
+                                </div> 
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <h:commandButton  action="#{gestionView.guardarHabitacion()}" class="btn btn-primary" value="Crear -- > Habitacion" />
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="modal fade" id="confiteriaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confiteria</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <h:form>
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="tipoId">Menu</label>
+                                <h:selectOneMenu class="form-control" value="#{gestionView.nuevaConfiteria.menu}">
+                                    <f:selectItem itemValue="café con leche" itemLabel="café con leche"></f:selectItem>
+                                    <f:selectItem itemValue="te acompañado de pan" itemLabel="te acompañado de pan"></f:selectItem>
+                                </h:selectOneMenu>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tipoId">Adicionales</label>
+                                <h:selectOneMenu class="form-control" value="#{gestionView.nuevaConfiteria.adicionales}">
+                                    <f:selectItem itemValue="Gaseosa" itemLabel="Gaseosa"></f:selectItem>
+                                    <f:selectItem itemValue="agua mineral con gas" itemLabel="agua mineral con gas"></f:selectItem>
+                                    <f:selectItem itemValue="agua mineral sin gas" itemLabel="agua mineral sin gas"></f:selectItem>
+                                </h:selectOneMenu>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            <h:commandButton  action="#{gestionView.guardarConfiteria()}" class="btn btn-primary" value="Crear -- > Confiteria" />
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    </h:body>
+</html>
+
